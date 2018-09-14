@@ -1,0 +1,64 @@
+<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+
+<div id="myHeader" class="col s12 continer-header">
+
+  <!-- {% if notice %}
+  <p id="notice">"{{ notice }}"</p>
+  {% end %} -->
+  <h1 class="slogan justify-content-center mb-5">Let 's Eat</h1>
+</div>
+
+
+<!-- Display Navbar -->
+<nav>
+  <div class="nav-wrapper">
+    <a [routerLink]="['/restaurants']" class="brand-logo"><span>Restaurants</span>Watcher</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/restaurants']"><i class="material-icons prefix">restaurant</i> View Restaurants</a></li>
+      <li><a [routerLink]="['/restaurants','new']"><i class="material-icons prefix">add</i> Add New Restaurant</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Display Main Container -->
+<div class="row heading">
+  <a [routerLink]="['/restaurants','new']" class="sn btn grey-text">New Restaurant!</a>
+</div>
+
+<div
+  *ngIf = "restaurants; then show-restaurants; else show-none">
+</div>
+
+<!-- If no reviews has been posted yet -->
+<div *ngIf="!restaurants" class="row">
+  <div class="col s6">
+    <h3>No Restaurant has been registered Yet!</h3>
+    <p class="green-text">To register a restaurant, press the "New Restaurant" button.</p>
+  </div>
+</div>
+
+<div *ngIf = "restaurants" class="container">
+  <table>
+
+      <thead class="thdark">
+        <tr class="gridth">
+          <th>Restaurant       </th>
+          <th>Cuisine          </th>
+          <th>Available Actions</th>
+        </tr>
+      </thead>
+    <div class="scrolling-wrapper">
+      <tbody>
+        <tr *ngFor="let restaurant of restaurants" class="gridtd">
+          <td class="orange-text">{{ restaurant.name }}</td>
+          <td class="cuisine">{{ restaurant.cuisine }}</td>
+          <td class="flexed">
+            <button class="btn btn-lg show" style="width:8rem !important" type="submit" [routerLink]="['/restaurants', restaurant._id]">Read Reviews</button>
+            <button class="btn btn-md edit" style="width:8rem !important" type="submit" [routerLink]="['/restaurants', restaurant._id, 'edit']">Update</button>
+            <button (click)="onDelete(restaurant._id)" class="btn btn-md delete" style="width:8rem !important" >Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </div>
+  </table>
+</div>

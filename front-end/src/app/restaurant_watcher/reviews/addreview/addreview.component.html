@@ -1,0 +1,79 @@
+<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+ <!-- Compiled and minified JavaScript -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+
+<div id="myHeader" class="col s12 continer-header">
+
+  <!-- {% if notice %}
+  <p id="notice">"{{ notice }}"</p>
+  {% end %} -->
+  <h1 class="slogan justify-content-center mb-5">Let 's Eat</h1>
+</div>
+
+
+<!-- Display Navbar -->
+<nav>
+  <div class="nav-wrapper">
+    <a [routerLink]="['/restaurants']" class="brand-logo"><span>Restaurants</span>Watcher</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/restaurants','admin']"><i class="material-icons prefix">store</i> Manage Restaurants</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Display Main Container for <Add Component> -->
+<div class="container">
+  <div class="row top">
+    <div class="col-sm-8">
+      <h3 class="slogan justify-content-center mb-5">
+        <span class="white-text">New Review for</span> {{ resName }}
+      </h3>
+    </div>
+  </div>
+
+  <!-- Display the Add Restaurant Form -->
+  <form
+    #form = "ngForm"
+    (submit) = "onAddReview($event)">
+
+    <div class="input-field col s12">
+      <i class="material-icons prefix">account_circle</i>
+      <input type="text" name="review.customer" required minlength="3" unique="false" [(ngModel)]="review.customer" placeholder="Enter your name" #customer="ngModel" class="form-control validate white-text" />
+    </div>
+    <div class="row">
+      <small [hidden]="customer.valid || (customer.untouched && !form.submitted)" class="text-warning">The 'name' field must be filled with at least 3 characters</small>
+    </div>
+
+    <div class="input-field col s12">
+      <i class="material-icons prefix">rate_review</i>
+      <textarea type="text" name="review.content" required minlength="3" [(ngModel)]="review.content" placeholder="Write Your Review Here..." #content="ngModel" rows="50" height="160" class="validate white-text"></textarea>
+    </div>
+    <div class="row">
+      <small [hidden]="content.valid || (content.untouched && !form.submitted)" style="color:orange;">
+        The 'comment' area must be filled with at least 3 characters.
+      </small>
+    </div>
+
+    <div class="input-field col s12">
+      <label for="stars"> Rating </label>
+      <fieldset class="rating">
+          <input type="radio" id="star5" name="review.stars" value="5" class="browser-default validate white-text" [(ngModel)]="review.stars" #stars="ngModel"/><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+          <input type="radio" id="star4" name="review.stars" value="4" class="browser-default validate white-text" [(ngModel)]="review.stars" #stars="ngModel"/><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+          <input type="radio" id="star3" name="review.stars" value="3" class="browser-default validate white-text" [(ngModel)]="review.stars" #stars="ngModel"/><label class = "full" for="star3" title="Meh - 3 stars"></label>
+          <input type="radio" id="star2" name="review.stars" value="2" class="browser-default validate white-text" [(ngModel)]="review.stars" #stars="ngModel"/><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+          <input type="radio" id="star1" name="review.stars" value="1" class="browser-default validate white-text" [(ngModel)]="review.stars" #stars="ngModel"/><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+      </fieldset>
+    </div>
+    <div class="row">
+      <small [hidden]="stars.valid || (stars.untouched && !form.submitted)" style="color:orange">
+        A number must selected to show satisfaction, where 5 is the highest.
+      </small>
+    </div>
+
+    <div class="form-row grided">
+      <input type="button" value="Cancel" (click)='onCancel()' class="btn btn-lg btn-text-info float-right">
+      <input [disabled]="form.invalid" type="submit" value="Add Review" class="btn btn-lg btn-text-info">
+    </div>
+  </form>
+</div>

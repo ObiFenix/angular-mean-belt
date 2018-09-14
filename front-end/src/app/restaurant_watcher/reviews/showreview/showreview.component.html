@@ -1,0 +1,61 @@
+<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+
+<div id="myHeader" class="col s12 continer-header">
+
+  <!-- {% if notice %}
+  <p id="notice">"{{ notice }}"</p>
+  {% end %} -->
+  <h1 class="slogan justify-content-center mb-5">Let 's Eat</h1>
+</div>
+
+
+<!-- Display Navbar -->
+<nav>
+  <div class="nav-wrapper">
+    <a [routerLink]="['/restaurants']" class="brand-logo"><span>Restaurants</span>Watcher</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/restaurants','admin']"><i class="material-icons prefix">restaurant</i> Manage Restaurants</a></li>
+      <li><a [routerLink]="['/restaurants', restaurant._id, 'new']"><i class="material-icons prefix">add</i> Add New Review</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="heading flexed">
+  <a [routerLink]="['/restaurants', restaurant._id, 'new']" class="sn btn grey-text">New Review!</a>
+  <p class="rev mb-5"><span class="white-text">Reviews for </span> {{ restaurant.name }}</p>
+</div>
+
+<div *ngIf = "reviews; then show-reviews; else show-none"></div>
+
+<!-- If no reviews has been posted yet -->
+<div *ngIf="!reviews" class="container">
+  <h3 class="white-text">No Reviews has been Posted Yet!</h3>
+  <p class="green-text">Please! Be the first one to add a review.</p>
+</div>
+
+<!-- ng Template diplaying all restaurant reviews -->
+<div *ngIf="reviews" class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Stars</th>
+        <th class="action">Description</th>
+      </tr>
+    </thead>
+
+    <tbody class="scrolling-wrapper">
+      <tr *ngFor="let review of reviews">
+        <td>{{ review.customer }}</td>
+        <td style="display:flex;">
+          <div ng-repeat="(key, stars) in review.stars">
+            <span>{{ review.stars }}</span>
+            <i class="material-icons star-button" ng-class="star-off" style="position:relative; left:.5rem;">star</i>
+            <span style="margin-left:1rem;"> rating</span>
+          </div>
+        </td>
+        <td>{{ review.content }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

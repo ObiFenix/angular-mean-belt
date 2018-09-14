@@ -1,0 +1,70 @@
+<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+
+<div id="myHeader" class="col s12 continer-header">
+
+  <!-- {% if notice %}
+  <p id="notice">"{{ notice }}"</p>
+  {% end %} -->
+  <h1 class="slogan justify-content-center mb-5">Let 's Eat</h1>
+</div>
+
+
+<!-- Display Navbar -->
+<nav>
+  <div class="nav-wrapper">
+    <a [routerLink]="['/restaurants']" class="brand-logo"><span>Restaurants</span>Watcher</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/restaurants','admin']"><i class="material-icons prefix">store</i> Manage Restaurants</a></li>
+      <li><a [routerLink]="['/restaurants','new']"><i class="material-icons prefix">add</i>Add New restaurant</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- Display Main Container for <Add Component> -->
+<div class="container">
+  <div class="row top">
+    <div class="col-sm-8">
+      <h3 class="slogan justify-content-center mb-5">
+        <span class="white-text">Editing</span> {{ restaurant.name }}
+      </h3>
+    </div>
+  </div>
+
+  <!-- Display the Edit Restaurant Form -->
+  <form
+    #form = "ngForm"
+    (submit) = "onEdit($event)">
+    <div class="form-row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input class="validate white-text" type="text" name="restaurant.name" required minlength="3" unique="false" [(ngModel)]="restaurant.name" #name="ngModel" style="color:#d8cab8cc" />
+        <label for="name">Restaurant name:</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <small [hidden]="name.valid || (name.untouched && !form.submitted)" class="text-warning">Sorry! The 'name' field must be filled with at least 3 characters</small>
+        <small [hidden]="!dub" class="text-warning">Sorry, This name already exit!</small>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">room_service</i>
+        <input class="validate white-text" type="text" name="restaurant.cuisine" required minlength="3" [(ngModel)]="restaurant.cuisine" #cuisine="ngModel" style="color:#d8cab8cc" />
+        <label for="type">Cuisine:</label>
+      </div>
+    </div>
+    <div class="row">
+      <small [hidden]="cuisine.valid || (cuisine.untouched && !form.submitted)" class="text-warning">The 'cuisine' field must be filled with at least 3 characters
+      </small>
+    </div>
+
+    <div class="form-row grided">
+      <input type="button" value="Cancel" (click)='onCancel()' class="btn btn-lg btn-text-info float-right">
+      <input [disabled]="form.invalid" type="submit" value="Update" class="btn btn-lg btn-text-info">
+    </div>
+
+  </form>
+</div>

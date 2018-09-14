@@ -1,0 +1,608 @@
+// MOVIES <HTML>
+================
+<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+
+<!-- Display Navbar -->
+<nav style="position: fixed;">
+  <div class="nav-wrapper">
+    <a [routerLink]="['/movies']" class="brand-logo">Squishy<span>Tomatoes</span></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/pets']">Home</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Display Main Container for <Add Component> -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1 class="justify-content-center mb-5" style="color:#d8cab8cc">Add a Review for {{ movie.title }}</h1>
+    </div>
+  </div>
+
+  <!-- <div *ngIf='errors'>
+    <div *ngIf='errors.errors.name'>{{ errors.errors.name.message }} </div>
+    <div *ngIf='errors.errors.stars'>{{ errors.errors.stars.message }} </div>
+    <div *ngIf='errors.errors.review'>{{ errors.errors.review.message }} </div>
+  </div>
+  <div *gIf='errors'>
+    <div *ngIf='errors.errors.title'>{{ errors.errors.title.message }} </div>
+    <div *ngIf='errors.errors.name'>{{ errors.errors.name.message }} </div>
+    <div *ngIf='errors.errors.stars'>{{ errors.errors.stars.message }} </div>
+    <div *ngIf='errors.errors.review'>{{ errors.errors.review.message }} </div>
+  </div>
+-->
+
+  <!-- Display the Add Movie Form -->
+  <form
+    #form = "ngForm"
+    (submit) = "onAdd($event)">
+
+    <div class="form-row">
+      <label for="name">Your Name:</label>
+      <input type="text" name="newReview.reviewer" required minlength="3" [(ngModel)]="newReview.reviewer" #type="ngModel" value="">
+    </div>
+    <div class="row"><small [hidden]="name.valid || (name.untouched && !form.submitted)" class="text-warning">The 'cuisine' field must be filled with at least 3 characters</small></div>
+
+    <label for="name">Stars:</label>
+      <select name="stars" [(ngModel)]="newReview.stars">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      Review:
+      <input type="text" name='review' [(ngModel)]="newReview.review">
+
+    <div class="form-row grided">
+      <input type="button" value="Cancel" (click)='onCancel()' class="btn btn-lg btn-text-info float-right">
+      <input [disabled]="form.invalid" type="submit" value="Register" class="btn btn-lg btn-text-info">
+    </div>
+  </form>
+</div>
+
+
+// MOVIES <Component>
+=====================
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpService } from '../../http.service';
+
+@Component({
+  selector: 'app-addreview',
+  templateUrl: './addreview.component.html',
+  styleUrls: ['./addreview.component.css']
+})
+
+export class AddreviewComponent implements OnInit {
+
+  newReview: any;
+  errors: any;
+
+  constructor(
+    private _httpService: HttpService,
+    private _router: Router) { }
+
+  ngOnInit() {
+    this.newReview = { title: '', reviewer: '', stars: '', review: '' };
+  }
+  onSubmit() {
+    console.log('onsubmit', this.newReview);
+    const observable = this._httpService.addMoviewReview(this.newReview, this.newReview._id);
+    observable.subscribe(data => {
+      if (data['errors']) { this.errors = data['errors']; }
+      else                { this._router.navigate([`movies`]); }
+    });
+  }
+  cancel() {
+    this._router.navigate(['movies']);
+  }
+}
+
+
+
+Add Movie Component
+===================
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpService } from '../../http.service';
+
+@Component({
+  selector: 'app-submit-movie-review',
+  templateUrl: './submit-movie-review.component.html',
+  styleUrls: ['./submit-movie-review.component.scss']
+})
+
+export class SubmitMovieReviewComponent implements OnInit {
+
+  newMovie: any;
+  errors: any;
+  constructor(private _httpService: HttpService, private _router: Router) { }
+
+  ngOnInit() {
+    this.newMovie = {title: '', reviewer: '', stars: '', review: '' };
+  }
+  onSubmit() {
+    console.log('onsubmit', this.newMovie);
+    const observable = this._httpService.submitMovie(this.newMovie);
+    observable.subscribe(data => {
+      if (data['errors']) { this.errors = data['errors']; }
+      else                { this.cancel(); }
+    });
+  }
+  cancel() {
+    this._router.navigate(['movies']);
+  }
+}
+
+
+// ADD MOVIE <HTML>
+===================
+<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+
+<!-- Display Navbar -->
+<nav style="position: fixed;">
+  <div class="nav-wrapper">
+    <a [routerLink]="['/movies']" class="brand-logo">Squishy<span>Tomatoes</span></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/pets']">Home</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Display Main Container for <Add Component> -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1 class="justify-content-center mb-5" style="color:#d8cab8cc">Submit a Movie and Your Review</h1>
+    </div>
+  </div>
+
+  <!-- Display the Add Movie Form -->
+  <form
+    #form = "ngForm"
+    (submit) = "onSubmit($event)">
+    <div class="form-row">
+      <label for="name">Movie Title:</label>
+      <input type="text" name="movie.title" required minlength="3" unique="false" [(ngModel)]="movie.title" #name="ngModel" />
+    </div>
+    <div class="row">
+      <small [hidden]="name.valid || (name.untouched && !form.submitted)" class="text-warning">The 'name' field must be filled with at least 3 characters</small>
+      <small [hidden]="!dub" class="text-warning">Sorry, This name already exit!</small>
+    </div>
+
+    <div class="form-row">
+      <label for="reviewer">Your Name:</label>
+      <input type="text" name="movie.reviewer" required minlength="3" [(ngModel)]="movie.reviewer" #type="ngModel" value="">
+    </div>
+    <div class="row"><small [hidden]="name.valid || (name.untouched && !form.submitted)" class="text-warning">The 'reviewer' field must be filled with at least 3 characters</small></div>
+
+    <div class="form-row">
+      <label for="name">Stars:</label>
+      <select name="stars" [(ngModel)]="newReview.stars">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="review">Your Review:</label>
+      <textarea name="review" id="" cols="30" rows="10" [(ngModel)]="newReview.review"></textarea>
+    </div>
+    <div class="row"><small [hidden]="name.valid || (name.untouched && !form.submitted)" class="text-warning">The 'Review' field must be filled with at least 3 characters</small></div>
+
+    <div class="form-row grided">
+      <input type="button" value="Cancel" (click)='onCancel()' class="btn btn-lg btn-text-info float-right">
+      <input [disabled]="form.invalid" type="submit" value="Register" class="btn btn-lg btn-text-info">
+    </div>
+  </form>
+</div>
+
+
+
+// ADD MOVIE REVIEW <Component>
+===============================
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { HttpService } from '../../../http.service';
+
+@Component ({
+  selector: 'app-addreview',
+  templateUrl: './addreview.component.html',
+  styleUrls: ['./addreview.component.scss']
+})
+
+export class AddReviewComponent implements OnInit {
+
+  reviews: any;
+  restaurant: any;
+  errors: any;
+
+  constructor (
+    private _route: ActivatedRoute,
+    private _http: HttpService,
+    private _router: Router
+  ) {}
+
+  ngOnInit () {
+    this.restaurant = { name: '', comment: '', stars: 0 };
+    this.errors = { name: false, comment: false, stars: false };
+  }
+
+  onAddItem () {
+    // event.preventDefault();
+    console.log(this.restaurant);
+
+    const observable = this._http.addReview(this.restaurant);
+    observable.subscribe(doc => {
+      if (doc['errors']) { this.errors = doc['errors']; }
+      else               { this._router.navigate(['restaurants']); }
+    });
+  }
+
+  cancel () {
+    this._router.navigate(['/restaurants']);
+  }
+}
+
+
+// ADD MOVIE REVIEW <HTML>
+============================
+<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+
+<!-- Display Navbar -->
+<nav style="position: fixed;">
+  <div class="nav-wrapper">
+    <a [routerLink]="['/restaurants']" class="brand-logo">JTF<span>Restaurant</span></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/']">Home</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Display Main Container for <Add Review> -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1 class="justify-content-center mb-5" style="color:#d8cab8cc">Write a Review</h1>
+    </div>
+  </div>
+
+  <!-- Display the Add Restaurant Form -->
+  <form
+    #form = "ngForm"
+    (submit) = "onAdd($event)">
+
+    <div class="form-row">
+      <label for="name">Your name:</label>
+      <input type="text" name="review.username" required minlength="3" unique="false" [(ngModel)]="review.username" #name="ngModel" />
+    </div>
+
+    <div class="row">
+      <small [hidden]="name.valid || (name.untouched && !form.submitted)" class="text-warning">The 'name' field must be filled with at least 3 characters</small>
+      <small [hidden]="!dub" class="text-warning">Sorry, This name already exit!</small>
+    </div>
+
+    <div class="form-row">
+      <label for="name">Review Comments:</label>
+      <textarea type="text" name="review.comment" required minlength="3" [(ngModel)]="review.comment" #type="ngModel" value="" cols="30" rows="10"></textarea>
+    </div>
+    <div class="row"><small [hidden]="name.valid || (name.untouched && !form.submitted)" style="color:orange">The 'comment' area must be filled with at least 3 characters</small></div>
+
+    <div class="form-group">
+      <label>Stars</label>
+      <select class="form-control" name='review.stars' [(ngModel)]="review.stars">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+    <div class="row"><small [hidden]="name.valid || (name.untouched && !form.submitted)" style="color:orange">A number must selected to show satisfaction, where 5 is the highest.</small></div>
+
+    <div class="form-row grided">
+      <input type="button" value="Cancel" (click)='onCancel()' class="btn btn-lg btn-text-info float-right">
+      <input [disabled]="form.invalid" type="submit" value="Add Review" class="btn btn-lg btn-text-info">
+    </div>
+  </form>
+</div>
+
+
+
+// READ MOVIE REVIEW <HTML>
+===========================
+<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+
+<h1 class="purple-text" style="color:white;">{{ restaurant._id }}</h1>
+<p class="red-text" style="color:white;">{{ restaurant_id }}</p>
+
+<!-- Display Navbar -->
+<nav style="position: fixed;">
+  <div class="nav-wrapper">
+    <a [routerLink]="['/restaurants']" class="brand-logo">JTF<span>Restaurant</span></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/restaurants']">Home</a></li>
+      <li><a [routerLink]="['add']">Add New Review</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1 class="slogan justify-content-center mb-5" style="color:#d8cab8cc">Let's Eat</h1>
+    </div>
+  </div>
+
+  <div class="row heading">
+    <a [routerLink]="['/restaurants', restaurant._id, 'add']" class="grey-text">New Review!</a>
+  </div>
+
+  <div
+    *ngIf = "reviews; then show-reviews; else show-none">
+  </div>
+
+    <!-- If no reviews has been posted yet -->
+  <div *ngIf="!reviews" class="row">
+      <div class="col-xs-6">
+        <h3>No Reviews has been Posted Yet!</h3>
+        <p class="green-text">Please! Be the first one to add a review.</p>
+      </div>
+  </div>
+
+
+  <!-- ng Template diplaying all restaurant reviews -->
+  <div *ngIf="reviews" class="row">
+    <div class="col-xs-6">
+      <table>
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Stars</th>
+            <th class="action">Description</th>
+          </tr>
+        </thead>
+
+        <tbody class="scrolling-wrapper">
+          <tr *ngFor="let review of reviews">
+            <td>{{ review.username }}</td>
+            <td>{{ review.stars }}</td>
+            <td>{{ review.review }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+// READ MOVIE REVIEW <Component>
+================================
+import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../../../http.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
+
+@Component({
+  selector: 'app-show',
+  templateUrl: './show.component.html',
+  styleUrls: ['./show.component.scss']
+})
+
+
+export class ShowReviewComponent implements OnInit {
+
+  restaurant: Object;
+  restaurant_id: any;
+  errors: any;
+  reviews: any;
+  check: boolean;
+
+  constructor(
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _httpServ: HttpService) { }
+
+  ngOnInit () {
+    this.check = false;
+    this.reviews = [];
+    this.restaurant = {};
+    console.log(this.restaurant_id);
+    this.getReviews();
+  }
+
+  goHome () {
+    this._router.navigate(['/restaurants']);
+  }
+
+  getReviews () {
+    const observable = this._httpServ.getReviews(this._route.snapshot.params['id']);
+    observable.subscribe((doc: Object) => {
+      if (doc['errors']) { this.errors = doc['errors']; }
+      else {
+        this.reviews = doc['reviews'];
+        this.restaurant = doc['restaurant'];
+      } return this._router.navigate(['/restaurants']);
+    });
+  }
+}
+
+
+// REVIEW COMPONENT <SCSS>
+==========================
+.btn    { font-size: 10px; letter-spacing: .1rem; width: 10rem !important; margin-left: .5em; }
+.flexed { justify-content: flex-end; }
+h1 { color: #e6be8ad4; }
+h1 span { }
+thead   { color: #000; background-color: #e6be8ad4; }
+.action { justify-content: flex-end; padding: 1rem; }
+.scrolling-wrapper {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+  position:fixed;
+  opacity: 0.8;
+  height: 70%;
+  width: 70%;
+}
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { display: none; }
+
+.top { margin-bottom: 0; }
+.brand-logo {
+  color: #d8cab8cc;
+  // color: #f5f5f5 !important;
+  font-family: 'Days One', sans-serif;
+  span {
+    color: #f5f5f5 !important;
+  }
+  &:hover { color: #e6be8ad4 !important; }
+}
+
+
+
+ST Movies <HTML>
+=================
+<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+
+<!-- Display Navbar -->
+<nav style="position: fixed;">
+  <div class="nav-wrapper">
+    <a [routerLink]="['/movies']" class="brand-logo">Squishy<span>Tomatoes</span></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/movies','add']">Add New Movie</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Display Main Container -->
+<div class="container">
+  <div class="row top">
+    <div class="col-sm-8">
+      <h1 class="slogan justify-content-center mb-5">Moview List</h1>
+    </div>
+  </div>
+
+  <div class="row heading">
+    <a [routerLink]="['/movies','add']" class="sn btn grey-text">Add New Movie!</a>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="cuisine_h">Movie Title</th>
+        <th class="actions_h">Available Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let movie of items">
+          <td class="orange-text">{{ movie.title }}</td>
+          <td class="flexed">
+            <button [routerLink]="[i._id]" class='btn btn-lg read'>Read Reviews</button>
+            <button [routerLink]="['new', i._id]" class='btn btn-md update'>Write Review</button>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+Movies <COMOPNENT>
+==================
+...?
+
+
+
+READ REVIEW <HTML>
+==================
+<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
+
+<!-- Display Navbar -->
+<nav style="position: fixed;">
+  <div class="nav-wrapper">
+    <a [routerLink]="['/movies']" class="brand-logo">Squishy<span>Tomatoes</span></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/movies']">Home</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Display Main Container -->
+<div class="container">
+  <div class="row top">
+    <div class="col-sm-8">
+      <h1 class="slogan justify-content-center mb-5">Reviews for {{ review.title }}</h1>
+    </div>
+  </div>
+
+  <div class="row heading">
+    <button (click)='onDeleteAll(review._id)'>Delete Movie!</button>
+    <a [routerLink]="['/movies','add']" class="sn btn red-text">DELETE MOVIE</a>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="cuisine_h">Reviewer</th>
+        <th class="cuisine_h">Starts</th>
+        <th class="actions_h">Reviews</th>
+        <th class="actions_h">Available Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let movie of items">
+        <td class="">{{ review.reviewer }}</td>
+        <td class="">{{ review.stars }}</td>
+        <td class="">{{ review.review }}</td>
+        <td class=""><button (click)="onDelete(review._id)" class="btn btn-md delete">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+// READ MOVIE REVIEW
+====================
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { HttpService } from '../../http.service';
+
+@Component({
+  selector: 'app-reviews',
+  templateUrl: './read_review.component.html',
+  styleUrls: ['./read_review.component.scss']
+})
+
+export class ReadReviewComponent implements OnInit {
+  review: any;
+  constructor(
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _httpService: HttpService
+  ) {}
+
+  ngOnInit() {
+    this.review = {};
+    const observable = this._httpService.showReviews(this._route.snapshot.params['id']);
+    observable.subscribe(doc => { this.review = doc;
+      console.log(doc);
+    });
+  }
+
+  deleteMovie(id) {
+    const ob = this._httpService.deleteMovie(id);
+    ob.subscribe(data => { });
+    this._router.navigate(['movies']);
+  }
+
+  back() {
+    this._router.navigate(['movies']);
+  }
+}
