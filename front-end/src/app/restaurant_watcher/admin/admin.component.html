@@ -25,12 +25,8 @@
   <a [routerLink]="['/restaurants','new']" class="sn btn grey-text">New Restaurant!</a>
 </div>
 
-<div
-  *ngIf = "restaurants; then show-restaurants; else show-none">
-</div>
-
 <!-- If no reviews has been posted yet -->
-<div *ngIf="!restaurants" class="row">
+<div *ngIf="!restaurants" class="container">
   <div class="col s6">
     <h3>No Restaurant has been registered Yet!</h3>
     <p class="green-text">To register a restaurant, press the "New Restaurant" button.</p>
@@ -39,7 +35,6 @@
 
 <div *ngIf = "restaurants" class="container">
   <table>
-
       <thead class="thdark">
         <tr class="gridth">
           <th>Restaurant       </th>

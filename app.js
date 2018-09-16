@@ -32,7 +32,7 @@ require('./back-end/config/routes/restaurants.js')(app);
 // ================================
 // Clients connection port settings
 // ================================
-PORT = process.env.PORT || 8000;       // holds the arbitrary port for server
+PORT = process.env.PORT || 8080;       // holds the arbitrary port for server
 app.listen(PORT, () => {               // Clients connection port settings
     console.log(`\n====================[ REPORT ]\n| => Connection Status: Server started and is running on localhost at port ${PORT}`);
 });
