@@ -941,7 +941,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/obifenix/Desktop/obifenix-doojo/school-work/dojo-belts/angular-mean-belt/front-end/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/obifenix/Desktop/obifenix-doojo/school-work/mean-stack/Angular/restaurants-reviewer-blackbelt/front-end/src/main.ts */"./src/main.ts");
 
 
 /***/ })

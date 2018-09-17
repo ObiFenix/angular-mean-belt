@@ -539,7 +539,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/obifenix/Desktop/obifenix-doojo/school-work/dojo-belts/angular-mean-belt/front-end/src/styles.scss */"./src/styles.scss");
+module.exports = __webpack_require__(/*! /Users/obifenix/Desktop/obifenix-doojo/school-work/mean-stack/Angular/restaurants-reviewer-blackbelt/front-end/src/styles.scss */"./src/styles.scss");
 
 
 /***/ })
