@@ -14,14 +14,14 @@
   <div class="nav-wrapper">
     <a [routerLink]="['/restaurants']" class="brand-logo"><span>Restaurants</span>Watcher</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a [routerLink]="['/restaurants','admin']"><i class="material-icons prefix">restaurant</i> Manage Restaurants</a></li>
+      <li><a [routerLink]="['/restaurants','admin']"><i class="material-icons prefix">restaurant</i> View Restaurants</a></li>
       <li><a [routerLink]="['/restaurants', restaurant._id, 'new']"><i class="material-icons prefix">add</i> Add New Review</a></li>
     </ul>
   </div>
 </nav>
 
 <div class="heading flexed">
-  <a [routerLink]="['/restaurants', restaurant._id, 'new']" class="sn btn grey-text">New Review!</a>
+  <a [routerLink]="['/restaurants', restaurant._id, 'new']" class="sn btn grey-text">New Review</a>
   <p class="rev mb-5"><span class="white-text">Reviews for </span> {{ restaurant.name }}</p>
 </div>
 

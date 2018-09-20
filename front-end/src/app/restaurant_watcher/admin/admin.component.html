@@ -14,7 +14,7 @@
   <div class="nav-wrapper">
     <a [routerLink]="['/restaurants']" class="brand-logo"><span>Restaurants</span>Watcher</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a [routerLink]="['/restaurants']"><i class="material-icons prefix">restaurant</i> View Restaurants</a></li>
+      <li><a [routerLink]="['/restaurants']"><i class="material-icons prefix">store</i> Dashboard</a></li>
       <li><a [routerLink]="['/restaurants','new']"><i class="material-icons prefix">add</i> Add New Restaurant</a></li>
     </ul>
   </div>
@@ -22,11 +22,11 @@
 
 <!-- Display Main Container -->
 <div class="row heading">
-  <a [routerLink]="['/restaurants','new']" class="sn btn grey-text">New Restaurant!</a>
+  <a [routerLink]="['/restaurants','new']" class="sn btn grey-text">New Restaurant</a>
 </div>
 
 <!-- If no reviews has been posted yet -->
-<div *ngIf="!restaurants" class="container">
+<div *ngIf="!restaurants" class="containerX">
   <div class="col s6">
     <h3>No Restaurant has been registered Yet!</h3>
     <p class="green-text">To register a restaurant, press the "New Restaurant" button.</p>

@@ -26,6 +26,7 @@ $(() => {
   $('select').formSelect();
   $("#stars").html( drawStars() );
   $('.carousel.carousel-slider').carousel({ fullWidth: true });
+  $('.carousel.carousel-slider').carousel({ fullWidth: true });
   $('.datepicker').datepicker();
   $("nav").find("a").click(function(e) {
     e.preventDefault();
