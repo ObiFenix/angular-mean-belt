@@ -26,7 +26,7 @@
   <div class="row top">
     <div class="col-sm-8">
       <h3 class="slogan justify-content-center mb-5">
-        <span class="white-text">Editing</span> {{ restaurant.name }}
+        <span class="white-text">Editing</span> {{ restaurant['name'] }}
       </h3>
     </div>
   </div>
@@ -38,7 +38,7 @@
     <div class="form-row">
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input class="validate white-text" type="text" name="restaurant.name" required minlength="3" unique="false" [(ngModel)]="restaurant.name" #name="ngModel" style="color:#d8cab8cc" />
+        <input class="validate white-text" type="text" name="restaurant.name" required minlength="3" unique="false" [(ngModel)]="restaurant['name']" #name="ngModel" style="color:#d8cab8cc" />
         <label for="name">Restaurant name:</label>
       </div>
     </div>
@@ -52,7 +52,7 @@
     <div class="form-row">
       <div class="input-field col s12">
         <i class="material-icons prefix">room_service</i>
-        <input class="validate white-text" type="text" name="restaurant.cuisine" required minlength="3" [(ngModel)]="restaurant.cuisine" #cuisine="ngModel" style="color:#d8cab8cc" />
+        <input class="validate white-text" type="text" name="restaurant.cuisine" required minlength="3" [(ngModel)]="restaurant['cuisine']" #cuisine="ngModel" style="color:#d8cab8cc" />
         <label for="type">Cuisine:</label>
       </div>
     </div>

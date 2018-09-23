@@ -20,20 +20,24 @@
   </div>
 </nav>
 
-<!-- Display Main Container -->
-<div class="row heading">
-  <a [routerLink]="['/restaurants','new']" class="sn btn grey-text">New Restaurant</a>
-</div>
 
-<!-- If no reviews has been posted yet -->
-<div *ngIf="!restaurants" class="containerX">
-  <div class="col s6">
-    <h3>No Restaurant has been registered Yet!</h3>
-    <p class="green-text">To register a restaurant, press the "New Restaurant" button.</p>
-  </div>
-</div>
+
+
 
 <div *ngIf = "restaurants" class="container">
+  <!-- Display Main Container -->
+
+    <a [routerLink]="['/restaurants','new']" class="sn btn grey-text" style="margin:2rem 1rem;">New Restaurant</a>
+
+
+  <!-- If no reviews has been posted yet -->
+  <div *ngIf="!restaurants">
+    <div class="col s6">
+      <h3>No Restaurant has been registered Yet!</h3>
+      <p class="green-text">To register a restaurant, press the "New Restaurant" button.</p>
+    </div>
+  </div>
+
   <table>
       <thead class="thdark">
         <tr class="gridth">
@@ -48,9 +52,9 @@
           <td class="orange-text">{{ restaurant.name }}</td>
           <td class="cuisine">{{ restaurant.cuisine }}</td>
           <td class="flexed">
-            <button class="btn btn-lg show" style="width:8rem !important" type="submit" [routerLink]="['/restaurants', restaurant._id]">Read Reviews</button>
-            <button class="btn btn-md edit" style="width:8rem !important" type="submit" [routerLink]="['/restaurants', restaurant._id, 'edit']">Update</button>
-            <button (click)="onDelete(restaurant._id)" class="btn btn-md delete" style="width:8rem !important" >Delete</button>
+            <button class="btn btn-md show" type="submit" [routerLink]="['/restaurants', restaurant._id]">Read Reviews</button>
+            <button class="btn btn-md edit" type="submit" [routerLink]="['/restaurants', restaurant._id, 'edit']">Update</button>
+            <button (click)="onDelete(restaurant._id)" class="btn btn-md delete" >Delete</button>
           </td>
         </tr>
       </tbody>

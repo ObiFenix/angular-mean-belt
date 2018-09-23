@@ -1,8 +1,8 @@
-.btn    { font-size: 9px; letter-spacing: .1rem; width: 10rem !important; margin-right: .5rem; }
+.btn    { font-size: 9px; letter-spacing: .1rem; min-width: 9rem !important; margin-right: .5rem; }
 .flexed { justify-content: flex-end; }
-.container { min-width: 75%; background-color: #29212a57 transparent; color: #f5f5f5; }
-.containerX { min-width: 75%; background-color: #29212a57 transparent; color: #f5f5f5; padding: 0.1rem 1rem; }
-.heading { margin: 3rem 12.5% 1rem; }
+.container { width: 100%;  color: #f5f5f5; padding: .1rem 5rem; }
+.containerX { width: 100%; color: #f5f5f5; padding: 0.1rem 1rem; }
+// .heading { margin: 3rem 12.5% 1rem; }
 
 // h1   { color: #e6be8ad4; }
 th { padding: 1rem !important; }

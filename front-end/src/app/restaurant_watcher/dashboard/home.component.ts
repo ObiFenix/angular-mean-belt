@@ -10,8 +10,12 @@ import { HttpService } from '../../http.service';
 export class HomeComponent implements OnInit {
 
   title: 'MnJRestaurant';
-
-  items: Object;
+  spicehut_id: any;
+  pappasbros_id: any;
+  dbpit_id: any;
+  mansionR_id: any;
+  mapache_id: any;
+  restaurants: Object;
 
   constructor(
     private _router: Router,
@@ -25,17 +29,16 @@ export class HomeComponent implements OnInit {
     const observable = this._httpServ.getRestaurants();
     observable.subscribe(doc => {
       console.log(doc['items']);
-      this.items = doc['items'];
+      this.restaurants = doc['items'];
+      // console.log(typeof(this.restaurants));
+      for (let index in this.restaurants) {
+        console.log(this.restaurants[index].name);
+        if (this.restaurants[index].name === 'Spice Hut') { this.spicehut_id = this.restaurants[index]._id; }
+        if (this.restaurants[index].name === 'Pappas Bros') { this.pappasbros_id = this.restaurants[index]._id; }
+        if (this.restaurants[index].name === 'Dickey\'s Barbecue Pit') { this.dbpit_id = this.restaurants[index]._id; }
+        if (this.restaurants[index].name === 'The Mansion Restaurant') { this.mansionR_id = this.restaurants[index]._id ; }
+        if (this.restaurants[index].name === 'El Mapache') { this.mapache_id = this.restaurants[index]._id; }
+      }
     });
-  }
-
-  onDelete(id) {
-    console.log('Before ========================', typeof(id));
-    const observable = this._httpServ.deleteRestaurant(id);
-    observable.subscribe(doc => {
-      console.log('After ========================');
-      this._router.navigate(['/restaurants']);
-    });
-    this._router.navigate(['/restaurants']);
   }
 }

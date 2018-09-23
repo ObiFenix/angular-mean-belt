@@ -3,8 +3,8 @@ html { height: 100% !important; }
 
 // Navbar section
 nav {
-  transition: background-color .4s ease-in-out;
-  background-color:#000;
+  transition: background-color 0.4s ease-in-out;
+  background-color: #000;
   padding: 0 4rem;
   .brand-logo {
     color: #d8cab8cc;
@@ -25,9 +25,9 @@ nav {
 body {
   margin: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   // position: relative;
-  background-size: cover;
+  // background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-image: url('https://thecyberacademy.org/wp-content/uploads/2015/06/main.jpg')}
@@ -35,17 +35,17 @@ body {
 // Container section
 .container-header { height: 10%; width: 100%; background-color: #171414e3; color: #f5f5f5; padding: 4rem 2rem; }
 .container-body { height: 60%; width: 70%; background-color: #29212a57; color: #f5f5f5; margin: 1rem auto;}
-.container-img { height: 84vh; width: 100%; background-color: #29212a57; color: #f5f5f5; padding: 0.6rem; position: relative;
+.container-img { width: 100%; background-color: #354747; color: #f5f5f5; padding: 0.6rem; position: relative;
   display: grid;
   grid-column-gap: 0.5rem;
   grid-template-columns: 1fr 1fr;
-  img { width: 100%; height: 300px; }
+  img { width: 100%; min-height: 100px; }
 }
 .container { background: #15151373; }
 .container h1 { margin: 1rem 2rem; }
 .heading { margin: 5rem 22% 1rem; .btn:hover { border: 1px solid #f5f5f557; }}
 .sticky {
-  transition: background-color .6s ease-in-out;
+  transition: background-color 0.6s ease-in-out;
   background-color: #000;
   position: fixed;
   width: 100%;
@@ -61,8 +61,8 @@ form { padding: 0 15rem; }
 ul .form-row  { padding-left: 4rem !important; }
 .form-row     { line-height: 0rem; }
 .top          { margin-bottom: 0; }
-.gridth       { display: grid; grid-template-columns: 30% 31% 39%; }
-.gridtd       { display: grid; grid-template-columns: 40% 40% 51%; }
+.gridth       { display: grid; grid-template-columns: 1.9fr 1.6fr 2.5fr; }
+.gridtd       { display: grid; grid-template-columns: 1.8fr 1.5fr 1.8fr; }
 .grided-three { display: grid; grid-template-columns: repeat(3, 1fr); justify-self: center}
 .flxend       { display: flex; justify-content: end; }                                             // div container requiring flex
 .flexed       { display: flex; justify-content: space-between; }                                   // div container requiring flex
@@ -77,7 +77,7 @@ ul .form-row  { padding-left: 4rem !important; }
 .text-warning { color: #fba153fa; }
 // .sn:hover { background-color: #222 !important; }
 .btn {
-  width: 8rem !important;
+  min-width: 9rem !important;
   background-color: #000;
   .update { color: dodgerblue; }
   .delete { color: red; }
@@ -100,7 +100,7 @@ ul .form-row  { padding-left: 4rem !important; }
     box-shadow: 0px 0px 0px 0px #222 !important;
 }
 .show {
-    width: 8rem !important;
+    // width: 8rem !important;
     border-radius: 1rem;
     font-size: 10px;
     width: 2rem;
@@ -111,7 +111,7 @@ ul .form-row  { padding-left: 4rem !important; }
     }
 }
 .edit {
-    width: 8rem !important;
+    // width: 8rem !important;
     border-radius: 1rem;
     font-size: 10px;
     color: lime;
@@ -122,7 +122,7 @@ ul .form-row  { padding-left: 4rem !important; }
     }
 }
 .add-one {
-    width: 8rem !important;
+    // width: 8rem !important;
   background-color: grey transparent !important;
   letter-spacing: .1rem;
   border-radius: 1rem;
@@ -136,7 +136,7 @@ ul .form-row  { padding-left: 4rem !important; }
   }
 }
 .delete {
-    width: 8rem !important;
+    // width: 8rem !important;
     border-radius: 1rem;
     font-size: 10px;
     color: #f44336;
@@ -152,4 +152,22 @@ ul .form-row  { padding-left: 4rem !important; }
   font-size: 2.5rem !important;
   padding-left: .5rem 1rem !important;
   font-family: 'Great Vibes', cursive;
+}
+
+
+@media (max-width: 1280px) { //} and min-width: 1083px) {
+  .show, .edit, .delete { font-size: 8px; }
+  .gridth { grid-template-columns: 1.6fr 1.6fr 2.4fr; }
+  .gridtd { grid-template-columns: 1.3fr 1.3fr 1fr; }
+}
+@media (max-width: 1080px) { //} and min-width: 1083px) {
+  // .show, .edit, .delete { width: auto; font-size: 8px; }
+  .gridth { grid-template-columns: 1.4fr 1.4fr 3fr; }
+  .gridtd { grid-template-columns: 1.3fr 1.3fr 1fr; }
+}
+@media (max-width: 1023px) { //} and min-width: 1083px) {
+  // .show, .edit, .delete { width: auto; font-size: 8px; }
+  .gridth { display: table-column-group; }
+
+  .container { padding: 0 !important; }
 }

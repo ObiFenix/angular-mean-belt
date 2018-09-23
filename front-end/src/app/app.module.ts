@@ -12,11 +12,6 @@ import { HomeComponent } from './restaurant_watcher/dashboard/home.component';
 import { AdminComponent } from './restaurant_watcher/admin/admin.component';
 import { AddReviewComponent } from './restaurant_watcher/reviews/addreview/addreview.component';
 import { ShowReviewComponent } from './restaurant_watcher/reviews/showreview/showreview.component';
-// import { ReadReviewComponent } from './SquishyTomatoes/read_review/read_review.component';
-// import { MoviesComponent } from './SquishyTomatoes/movies/movies.component';
-// import { AddMovieComponent } from './SquishyTomatoes/add-movie/add-movie.component';
-// import { WriteReviewComponent } from './SquishyTomatoes/write-review/write-review.component';
-
 
 @NgModule({
   declarations: [
