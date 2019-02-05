@@ -15,7 +15,7 @@ module.exports = function(app) {
 
     // Unknown Routes Handler
     app.all("*", (req, res, next) => {                              // REDIRECT back to the front-End (client) for any bacd HTTP Request
-        res.sendFile(pathCtrl.resolve("./front-end/dist/front-end/index.html"));
+        res.sendFile(pathCtrl.resolve("./eRevRestaurant/dist/eRevRestaurant/index.html"));
     });
 
     // route for handling 404 requests(unavailable routes)

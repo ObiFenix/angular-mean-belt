@@ -13,7 +13,7 @@ const express = require("express"),
 // ============================
 // Application-Level Middleware
 // ============================
-app.use(express.static(path.join(__dirname, 'front-end', 'dist', 'front-end')));
+app.use(express.static(path.join(__dirname, 'eRevRestaurant', 'dist', 'eRevRestaurant')));
 app.use(bodyParser.json());
 app.use(session({
     secret: 'this$belt%is|fire!',
