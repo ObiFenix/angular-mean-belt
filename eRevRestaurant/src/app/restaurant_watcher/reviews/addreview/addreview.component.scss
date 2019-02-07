@@ -36,30 +36,29 @@
 
 
 // h1      { color: #e6be8ad4; }
+h3.slogan { padding: 2rem 0 !important; }
 tr:hover{ background: #40332352; border-radius: 10rem; }
 thead   { color: #ada8a8f2 !important; background:#10151475 !important; font-family: 'Days One', sans-serif; }
 table   { border-spacing: 1px; }
-// form    { .btn {width: 100% !important; } div:last-child {  }}
-trheader{ th:last-child { padding-left: 6rem !important; }}
 
 // .action { justify-content: flex-end; padding: 1rem; }
 // .action { justify-content: flex-end; padding: 1rem; }
 
 .scrolling-wrapper {
-    -webkit-overflow-scrolling: touch;
-    margin: 1rem 15rem !important;
-    height: 660px !important;
-    // min-height: 80vh !important;
-    // padding-bottom: 2rem;
-    overflow-y: scroll;
-    position:relative;
-    opacity: 0.8;
-    .img { width: 100%; height: 549px; }
-    // width: 100%;
-    // z-index: -1;
-  }
-  ::-webkit-scrollbar { width: 12px; }
-  ::-webkit-scrollbar-track { display: none; }
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 15rem !important;
+  height: 660px !important;
+  // min-height: 80vh !important;
+  // padding-bottom: 2rem;
+  overflow-y: scroll;
+  position:relative;
+  opacity: 0.8;
+  .img { width: 100%; height: 549px; }
+  // width: 100%;
+  // z-index: -1;
+}
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { display: none; }
 
 .cuisine {
   // padding: 0 1rem;

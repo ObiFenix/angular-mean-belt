@@ -1,7 +1,6 @@
 <link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet">
 
 <div id="myHeader" class="col s12 continer-header">
-
   <!-- {% if notice %}
   <p id="notice">"{{ notice }}"</p>
   {% end %} -->
@@ -40,7 +39,7 @@
     <thead>
       <tr>
         <th>Customer</th>
-        <th>Stars</th>
+        <th>Raiting</th>
         <th class="action">Description</th>
       </tr>
     </thead>
@@ -52,7 +51,7 @@
           <div ng-repeat="(key, stars) in review.stars">
             <span>{{ review.stars }}</span>
             <i class="material-icons star-button" ng-class="star-off" style="position:relative; left:.5rem;">star</i>
-            <span style="margin-left:1rem;"> rating</span>
+            <!-- <span style="margin-left:1rem;"> rating</span> -->
           </div>
         </td>
         <td>{{ review.content }}</td>

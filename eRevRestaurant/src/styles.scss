@@ -1,14 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
-html { height: 100% !important; }
+/*
+    You can add global styles to this file, and also import other style files
+*/
+
+html {
+  max-width: 100%;
+  margin: auto auto;
+}
 
 // Navbar section
 nav {
   transition: background-color 0.4s ease-in-out;
   background-color: #000;
+  line-height: 4rem;
   padding: 0 4rem;
+  height: 4rem;
   .brand-logo {
     color: #d8cab8cc;
-    font-size: 1.6rem !important;
+    font-size: 1.4rem;
     font-family: 'Days One', sans-serif;
     span { color: #f5f5f5 !important; }
     &:hover { color: #e6be8ad4 !important; }
@@ -16,6 +24,7 @@ nav {
   ul {
     a {
       display: flex;
+      font-size: 0.9rem;
       i { margin-right: 5px; }
       &:hover { color: tan; }
     }
@@ -30,7 +39,8 @@ body {
   // background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url('https://thecyberacademy.org/wp-content/uploads/2015/06/main.jpg')}
+  background-image: url('https://thecyberacademy.org/wp-content/uploads/2015/06/main.jpg');
+}
 
 // Container section
 .container-header { height: 10%; width: 100%; background-color: #171414e3; color: #f5f5f5; padding: 4rem 2rem; }
@@ -56,8 +66,9 @@ body {
 }
 th,td { padding: 0.8rem 1rem !important; }
 // th:last-child { padding-left: 4rem !important; }
+
 // Form Components [ Add and Edit ] Section
-form { padding: 0 15rem; }
+form { padding: 0 10rem; }
 ul .form-row  { padding-left: 4rem !important; }
 .form-row     { line-height: 0rem; }
 .top          { margin-bottom: 0; }
@@ -148,13 +159,14 @@ ul .form-row  { padding-left: 4rem !important; }
 .slogan {
   position: static;
   color: #d8cab8cc;
-  margin: 1rem !important;
+  margin: 0rem !important;
+  padding: 1rem !important;
   font-size: 2.5rem !important;
-  padding-left: .5rem 1rem !important;
   font-family: 'Great Vibes', cursive;
 }
 
-
+// @media (min-width: 1440) { form { padding: 0 10rem; }}
+// @media (max-width: 1124) { form { padding: 0 8rem; }}
 @media (max-width: 1280px) { //} and min-width: 1083px) {
   .show, .edit, .delete { font-size: 8px; }
   .gridth { grid-template-columns: 1.6fr 1.6fr 2.4fr; }
